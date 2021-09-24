@@ -9,11 +9,11 @@ class TaskService {
     return data.map<Task>((json) => Task.fromJson(json)).toList();
   }
 
-  Future<Task> createTask({Task task}) async {
-    final jsonTodo = await dataService.post('task/', data: task.toJson());
+  // Future<Task> createTask({Task task}) async {
+  //   final jsonTodo = await dataService.post('task/', data: task.toJson());
 
-    return Task.fromJson(jsonTodo);
-  }
+  //   return Task.fromJson(jsonTodo);
+  // }
 
   Future<Task> updateTask({int id, String title}) async {
     final data = await dataService.patch('tasks/$id', data: {'title': title});

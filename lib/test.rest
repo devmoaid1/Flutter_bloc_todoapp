@@ -2,7 +2,7 @@
 GET http://192.168.1.38:3000/tasks 
 ###
 
-POST https://192.168.112.1:3000/tasks HTTP/1.1 
+POST http://192.168.1.38:3000/tasks HTTP/1.1 
 
  
 
@@ -13,7 +13,7 @@ POST https://192.168.112.1:3000/tasks HTTP/1.1
 
 } 
 ###
-DELETE http://192.168.112.1:3000/tasks/5 HTTP/1.1 
+DELETE http://192.168.1.38:3000/tasks/6 HTTP/1.1 
 
 ### 
 PATCH http://192.168.112.1:3000/tasks/1 HTTP/1.1 
