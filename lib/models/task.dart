@@ -5,10 +5,17 @@ class Task {
 
   Task({this.id, this.title, this.subTitle});
 
-  Task.copy(Task from) : this(title: from.title, subTitle: from.subTitle);
+  Task.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    title = json['title'];
+    subTitle = json['subTitle'];
+  }
 
-  Task.fromJson(Map<String, dynamic> json)
-      : this(id: json['id'], title: json['title'], subTitle: json['subTitle']);
-
-  Map<String, dynamic> toJson() => {'title': title, 'subTitle': subTitle};
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['title'] = this.title;
+    data['subTitle'] = this.subTitle;
+    return data;
+  }
 }

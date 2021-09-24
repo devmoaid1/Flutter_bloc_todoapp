@@ -1,24 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc_todoapp/bloc/bloc/task_bloc.dart';
+import 'package:flutter_bloc_todoapp/screens/TaskContainer.dart';
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+class TasksScreen extends StatefulWidget {
+  TasksScreen({Key key, this.title}) : super(key: key);
 
   final String title;
-
+  TaskBloc bloc;
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _TasksScreen createState() => _TasksScreen();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+class _TasksScreen extends State<TasksScreen> {
+  String title;
+  TaskBloc bloc;
+  @override
+  void initState() {
+    super.initState();
+    bloc = BlocProvider.of<TaskBloc>(context);
+    bloc.add(FetchTasks());
+    print(bloc);
   }
 
   @override
+  void dispose() {
+    bloc.close();
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -35,68 +45,30 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Container(
         color: Colors.black,
-        child: ListView.builder(
-            itemCount: 8,
-            itemBuilder: (_, index) {
-              return Padding(
-                padding: const EdgeInsets.fromLTRB(0, 2, 0, 2),
-                child: Container(
-                  color: Color(0xff1E1C1C),
-                  child: ListTile(
-                    title: Text(
-                      "Task 1",
-                      style: TextStyle(
-                          fontFamily: 'poppins',
-                          fontSize: 20,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.white),
-                    ),
-                    subtitle: Text(
-                        "Task 1 requires you to do cleaningaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                        style: TextStyle(
-                            fontFamily: 'poppins',
-                            fontSize: 15,
-                            color: Colors.grey)),
-                    trailing: SizedBox(
-                      width: 50,
-                      child: Row(
-                        children: [
-                          Flexible(
-                            flex: 1,
-                            child: GestureDetector(
-                              onTap: () {},
-                              child: Icon(
-                                Icons.update,
-                                size: 30,
-                                color: Color(0xff0ACFA0),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Flexible(
-                            flex: 1,
-                            child: GestureDetector(
-                              onTap: () {},
-                              child: Icon(
-                                Icons.delete,
-                                size: 30,
-                                color: Colors.red,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              );
-            }),
+        child: BlocBuilder<TaskBloc, TaskState>(
+          builder: (context, state) {
+            if (state is TaskInitial) {
+              return Center(child: CircularProgressIndicator());
+            } else if (state is LoadingState) {
+              return CircularProgressIndicator();
+            } else if (state is FetchSuccess) {
+              return ListView.builder(
+                  itemCount: state.tasks.length,
+                  itemBuilder: (_, index) {
+                    return TaskContainer(
+                        title: state.tasks[index].title,
+                        subtitle: state.tasks[index].subTitle);
+                  });
+            } else if (state is ErrorMassage) {
+              return ErrorWidget(state.massage.toString());
+            }
+            return Container();
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xff0ACFA0),
-        onPressed: _incrementCounter,
+        onPressed: () {},
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
