@@ -8,3 +8,8 @@ class TaskEvent extends Equatable {
 }
 
 class FetchTasks extends TaskEvent {}
+
+class DeleteTask extends TaskEvent {
+  int id;
+  DeleteTask({this.id});
+}

@@ -21,3 +21,8 @@ class ErrorMassage extends TaskState {
   String massage;
   ErrorMassage({this.massage});
 }
+
+class DeleteSuccess extends TaskState {
+  int id;
+  DeleteSuccess({this.id});
+}

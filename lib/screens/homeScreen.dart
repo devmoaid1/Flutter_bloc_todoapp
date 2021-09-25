@@ -7,7 +7,7 @@ class TasksScreen extends StatefulWidget {
   TasksScreen({Key key, this.title}) : super(key: key);
 
   final String title;
-  TaskBloc bloc;
+
   @override
   _TasksScreen createState() => _TasksScreen();
 }
@@ -56,8 +56,12 @@ class _TasksScreen extends State<TasksScreen> {
                   itemCount: state.tasks.length,
                   itemBuilder: (_, index) {
                     return TaskContainer(
-                        title: state.tasks[index].title,
-                        subtitle: state.tasks[index].subTitle);
+                      title: state.tasks[index].title,
+                      subtitle: state.tasks[index].subTitle,
+                      onDelete: () {
+                        bloc.add(DeleteTask(id: index + 1));
+                      },
+                    );
                   });
             } else if (state is ErrorMassage) {
               return ErrorWidget(state.massage.toString());

@@ -1,16 +1,20 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc_todoapp/constants.dart';
 
 class TaskContainer extends StatelessWidget {
   final title;
   final subtitle;
-  TaskContainer({this.title, this.subtitle});
+  Function onDelete;
+  TaskContainer({this.title, this.subtitle, this.onDelete});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 2, 0, 2),
       child: Container(
-        color: Color(0xff1E1C1C),
+        color: primaryColor,
         child: ListTile(
           title: Text(
             title,
@@ -34,7 +38,7 @@ class TaskContainer extends StatelessWidget {
                     child: Icon(
                       Icons.update,
                       size: 30,
-                      color: Color(0xff0ACFA0),
+                      color: secondaryColor,
                     ),
                   ),
                 ),
@@ -44,7 +48,7 @@ class TaskContainer extends StatelessWidget {
                 Flexible(
                   flex: 1,
                   child: GestureDetector(
-                    onTap: () {},
+                    onTap: onDelete,
                     child: Icon(
                       Icons.delete,
                       size: 30,

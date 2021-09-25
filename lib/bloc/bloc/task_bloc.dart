@@ -19,6 +19,15 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
       } catch (err) {
         yield ErrorMassage(massage: err.toString());
       }
+    } else if (event is DeleteTask) {
+      var id = event.id;
+      try {
+        await tasks.deleteTask(id: id);
+        var newTasks = await tasks.getAllTasks();
+        yield FetchSuccess(tasks: newTasks);
+      } catch (err) {
+        yield ErrorMassage(massage: err.toString());
+      }
     }
   }
 }
