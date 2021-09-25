@@ -2,6 +2,13 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class DataService {
+  static final DataService _instance = DataService._constructor();
+  factory DataService() {
+    return _instance;
+  }
+
+  DataService._constructor();
+
   Uri baseUrl(String endPoint) =>
       Uri.parse("http://192.168.1.38:3000/$endPoint");
 
@@ -49,5 +56,3 @@ class DataService {
     throw response;
   }
 }
-
-final dataService = DataService();

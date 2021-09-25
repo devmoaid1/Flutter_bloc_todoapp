@@ -1,24 +1,12 @@
 {
   "tasks": [
     {
-      "id": 1,
-      "title": "Task 1",
-      "subTitle": "this task is responsible for preparing for the new project in mobile app development"
-    },
-    {
-      "id": 2,
-      "title": "Task 2 ",
-      "subTitle": "this task is responsible for learning flutter bloc architecture"
-    },
-    {
-      "id": 3,
-      "title": "Task 3",
-      "subTitle": "this task is responsible for building small flutter project"
-    },
-    {
       "id": 4,
       "title": "Task 4",
       "subTitle": "this task is responsible for subscribing to Fibre optic internet service"
+    },
+    {
+      "id": 5
     }
   ]
 }

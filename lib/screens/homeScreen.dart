@@ -59,7 +59,7 @@ class _TasksScreen extends State<TasksScreen> {
                       title: state.tasks[index].title,
                       subtitle: state.tasks[index].subTitle,
                       onDelete: () {
-                        bloc.add(DeleteTask(id: index + 1));
+                        bloc.add(DeleteTask(id: state.tasks[index].id));
                       },
                     );
                   });

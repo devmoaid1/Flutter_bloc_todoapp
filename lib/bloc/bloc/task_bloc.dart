@@ -24,6 +24,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
       try {
         await tasks.deleteTask(id: id);
         var newTasks = await tasks.getAllTasks();
+        yield LoadingState();
         yield FetchSuccess(tasks: newTasks);
       } catch (err) {
         yield ErrorMassage(massage: err.toString());
